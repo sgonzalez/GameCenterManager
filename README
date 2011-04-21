@@ -1,0 +1,9 @@
+GameCenterManager is a simple singleton class that has methods for authentication, leaderboard score reporting, and achievement reporting. We are constantly expanding its capabilities so keep an eye!
+
+There is no attribution required but is greatly appreciated!
+
+Thanks for downloading,
+Santiago
+
+
+(Uses Matt Gallagher's SynthesizeSingleton macro)
