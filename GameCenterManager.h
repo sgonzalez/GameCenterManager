@@ -1,7 +1,7 @@
 //
 //  GameCenterManager.m
 //
-//  Created by Santiago Gonzalez on 3/30/11.
+//  Copyright 2011 Hicaduda. All rights reserved.
 //
 /*
  
