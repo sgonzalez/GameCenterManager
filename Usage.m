@@ -24,5 +24,10 @@ if (!success) {
 	[self matchEnded];
 }
 
+//To recieve invites, in delegate
+- (void)inviteReceived {
+	//Reset game or whatever and get ready
+}
+
 
 You can figure out the rest! ;-)

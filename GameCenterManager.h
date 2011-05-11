@@ -35,6 +35,7 @@
 
 @protocol GameCenterManagerDelegate 
 - (void)matchStarted;
+- (void)inviteReceived;
 - (void)matchEnded;
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 @end
@@ -46,8 +47,12 @@
 	GKMatch *match;
 	BOOL matchStarted;
 	id <GameCenterManagerDelegate> delegate;
-	NSMutableDictionary *playersDict;	
+	NSMutableDictionary *playersDict;
+	GKInvite *pendingInvite;
+	NSArray *pendingPlayersToInvite;
 }
+@property (retain) GKInvite *pendingInvite;
+@property (retain) NSArray *pendingPlayersToInvite;
 @property (retain) NSMutableDictionary *playersDict;
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;

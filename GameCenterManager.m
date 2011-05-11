@@ -34,6 +34,8 @@
 #import "SynthesizeSingleton.h"
 
 @implementation GameCenterManager
+@synthesize pendingInvite;
+@synthesize pendingPlayersToInvite;
 @synthesize playersDict;
 @synthesize presentingViewController;
 @synthesize match;
@@ -77,6 +79,14 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 		{
 			// Insert code here to handle a successful authentication.
 			gcSuccess = YES;
+			[GKMatchmaker sharedMatchmaker].inviteHandler = ^(GKInvite *acceptedInvite, NSArray *playersToInvite) {
+				
+				NSLog(@"Received invite");
+				self.pendingInvite = acceptedInvite;
+				self.pendingPlayersToInvite = playersToInvite;
+				[delegate inviteReceived];
+				
+			};
 		}
 		else
 		{
@@ -152,25 +162,42 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 	
 }
 
-- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate {
+- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers viewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate {
 	
     if (!gcSuccess) return;
 	
     matchStarted = NO;
     self.match = nil;
     self.presentingViewController = viewController;
-    delegate = theDelegate;               
-    [presentingViewController dismissModalViewControllerAnimated:NO];
+    delegate = theDelegate;
 	
-    GKMatchRequest *request = [[[GKMatchRequest alloc] init] autorelease]; 
-    request.minPlayers = minPlayers;     
-    request.maxPlayers = maxPlayers;
-	
-    GKMatchmakerViewController *mmvc = 
-	[[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];    
-    mmvc.matchmakerDelegate = self;
-	
-    [presentingViewController presentModalViewController:mmvc animated:YES];
+    if (pendingInvite != nil) {
+		
+        [presentingViewController dismissModalViewControllerAnimated:NO];
+        GKMatchmakerViewController *mmvc = [[[GKMatchmakerViewController alloc] initWithInvite:pendingInvite] autorelease];
+        mmvc.matchmakerDelegate = self;
+        [presentingViewController presentModalViewController:mmvc animated:YES];
+		
+        self.pendingInvite = nil;
+        self.pendingPlayersToInvite = nil;
+		
+    } else {
+		
+        [presentingViewController dismissModalViewControllerAnimated:NO];
+        GKMatchRequest *request = [[[GKMatchRequest alloc] init] autorelease]; 
+        request.minPlayers = minPlayers;     
+        request.maxPlayers = maxPlayers;
+        request.playersToInvite = pendingPlayersToInvite;
+		
+        GKMatchmakerViewController *mmvc = [[[GKMatchmakerViewController alloc] initWithMatchRequest:request] autorelease];    
+        mmvc.matchmakerDelegate = self;
+		
+        [presentingViewController presentModalViewController:mmvc animated:YES];
+		
+        self.pendingInvite = nil;
+        self.pendingPlayersToInvite = nil;
+		
+    }
 	
 }
 
