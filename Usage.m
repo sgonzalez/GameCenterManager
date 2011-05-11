@@ -9,3 +9,7 @@
 
 //Put when you post a score to a leaderboard
 [[GameCenterManager sharedGameCenterManager] reportScore:31415926 forCategory:@"leaderboardID"];
+
+
+//Multiplayer
+You can figure it out! It is just delegate stuff!

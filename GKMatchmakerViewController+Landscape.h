@@ -1,5 +1,5 @@
 //
-//  GameCenterManager.m
+//  GKMatchmakerViewController+Landscape.m
 //
 //  Copyright 2011 Hicaduda. All rights reserved.
 //
@@ -33,27 +33,6 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
-@protocol GameCenterManagerDelegate 
-- (void)matchStarted;
-- (void)matchEnded;
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
-@end
-
-@interface GameCenterManager : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate> {
-    BOOL gcSuccess;
-	
-	UIViewController *presentingViewController;
-	GKMatch *match;
-	BOOL matchStarted;
-	id <GameCenterManagerDelegate> delegate;
-}
-@property (retain) UIViewController *presentingViewController;
-@property (retain) GKMatch *match;
-@property (assign) id <GCHelperDelegate> delegate;
-@property (assign) BOOL gcSuccess;
-- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate;
-- (void)reportScore: (int64_t) score forCategory: (NSString*) category;
-- (void)authenticateLocalPlayer;
-- (void)reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
-+ (GameCenterManager *)sharedGameCenterManager;
+@interface GKMatchmakerViewController (Landscape)
+- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 @end
