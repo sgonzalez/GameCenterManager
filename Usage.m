@@ -11,5 +11,10 @@
 [[GameCenterManager sharedGameCenterManager] reportScore:31415926 forCategory:@"leaderboardID"];
 
 
-//Multiplayer
-You can figure it out! It is just delegate stuff!
+/*Multiplayer*/
+//Open matchmaker view controller
+[[GameCenterManager sharedGameCenterManager] findMatchWithMinPlayers:2 maxPlayers:2 fromViewController:self delegate:self]; //assumed that self is a delegate and is a view controller
+
+
+
+You can figure out the rest! ;-)
