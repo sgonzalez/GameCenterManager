@@ -12,9 +12,17 @@
 
 
 /*Multiplayer*/
+
 //Open matchmaker view controller
 [[GameCenterManager sharedGameCenterManager] findMatchWithMinPlayers:2 maxPlayers:2 fromViewController:self delegate:self]; //assumed that self is a delegate and is a view controller
 
+//Sending data
+NSError *error;
+BOOL success = [[GameCenterManager sharedGameCenterManager].match sendDataToAllPlayers:data withDataMode:GKMatchSendDataReliable error:&error];
+if (!success) {
+	NSLog(@"Error sending init packet");
+	[self matchEnded];
+}
 
 
 You can figure out the rest! ;-)
