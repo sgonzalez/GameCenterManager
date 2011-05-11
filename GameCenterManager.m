@@ -125,7 +125,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 	
 }
 
-- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers withViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate {
+- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate {
 	
     if (!gcSuccess) return;
 	
