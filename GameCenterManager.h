@@ -46,7 +46,9 @@
 	GKMatch *match;
 	BOOL matchStarted;
 	id <GameCenterManagerDelegate> delegate;
+	NSMutableDictionary *playersDict;	
 }
+@property (retain) NSMutableDictionary *playersDict;
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;
 @property (assign) id <GCHelperDelegate> delegate;

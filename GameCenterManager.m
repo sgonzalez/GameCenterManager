@@ -34,6 +34,7 @@
 #import "SynthesizeSingleton.h"
 
 @implementation GameCenterManager
+@synthesize playersDict;
 @synthesize presentingViewController;
 @synthesize match;
 @synthesize delegate;
@@ -97,6 +98,33 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 
 #pragma mark -
 
+- (void)lookupPlayers {
+	
+    NSLog(@"Looking up %d players...", match.playerIDs.count);
+    [GKPlayer loadPlayersForIdentifiers:match.playerIDs withCompletionHandler:^(NSArray *players, NSError *error) {
+		
+        if (error != nil) {
+            NSLog(@"Error retrieving player info: %@", error.localizedDescription);
+            matchStarted = NO;
+            [delegate matchEnded];
+        } else {
+			
+            // Populate players dict
+            self.playersDict = [NSMutableDictionary dictionaryWithCapacity:players.count];
+            for (GKPlayer *player in players) {
+                NSLog(@"Found player: %@", player.alias);
+                [playersDict setObject:player forKey:player.playerID];
+            }
+			
+            // Notify delegate match can begin
+            matchStarted = YES;
+            [delegate matchStarted];
+			
+        }
+    }];
+	
+}
+
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers withViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate {
 	
     if (!gcSuccess) return;
@@ -139,8 +167,10 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
     self.match = theMatch;
     match.delegate = self;
     if (!matchStarted && match.expectedPlayerCount == 0) {
-		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Ready to Start Match" message:nil delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil] autorelease];
-		[alert show]; 
+		NSLog(@"Ready to start match!");
+		[self lookupPlayers];
+//		UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:@"Ready to Start Match" message:nil delegate:nil cancelButtonTitle:@"Done" otherButtonTitles:nil] autorelease];
+//		[alert show]; 
     }
 }
 
@@ -164,6 +194,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 			
             if (!matchStarted && theMatch.expectedPlayerCount == 0) {
                 NSLog(@"Ready to start match!");
+				[self lookupPlayers];
             }
 			
             break; 
