@@ -1,4 +1,4 @@
-GameCenterManager is a simple singleton class that has methods for authentication, leaderboard score reporting, achievement reporting, and even multiplayer! There is even a category included for making a MatchmakingViewController landscape! Note that you must link against the GameCenter framework.
+GameCenterManager is a simple singleton class that has methods for authentication, leaderboard score reporting, achievement reporting, achievement and leaderboard view displaying, there is even even multiplayer using delegates! There is even a category included for making a MatchmakingViewController landscape! Note that your project must link against the GameCenter framework.
 
 Usage.m is a file showing the usage of this class, this is NOT a proper class implementation.
 

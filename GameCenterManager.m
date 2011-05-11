@@ -44,6 +44,33 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 
 #pragma mark -
 
+- (void)achievementViewControllerDidFinish:(GKAchievementViewController *)viewController {
+	[viewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)leaderboardViewControllerDidFinish:(GKLeaderboardViewController *)viewController {
+	[viewController dismissModalViewControllerAnimated:YES];
+}
+
+- (void)showLeaderboardsFromViewController:(UIViewController *)viewController {
+	GKLeaderboardViewController *leaderboardController = [[GKLeaderboardViewController alloc] init];
+    if (leaderboardController != nil) {
+        leaderboardController.leaderboardDelegate = self;
+        [viewController presentModalViewController: leaderboardController animated: YES];
+    }
+	[leaderboardController release];
+}
+
+- (void)showAchievementsFromViewController:(UIViewController *)viewController {
+	GKAchievementViewController *achievementvc = [[GKAchievementViewController alloc] init];
+	if (achievementvc != nil) {
+		achievementvc.achievementDelegate = self;
+		[viewController presentModalViewController:achievementvc animated:YES];
+	}
+}
+
+#pragma mark -
+
 - (void)authenticateLocalPlayer {
     [[GKLocalPlayer localPlayer] authenticateWithCompletionHandler:^(NSError *error) {
 		if (error == nil)

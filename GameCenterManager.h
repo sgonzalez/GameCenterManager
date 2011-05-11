@@ -39,7 +39,7 @@
 - (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
 @end
 
-@interface GameCenterManager : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate> {
+@interface GameCenterManager : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate> {
     BOOL gcSuccess;
 	
 	UIViewController *presentingViewController;
@@ -54,6 +54,8 @@
 @property (assign) id <GameCenterManagerDelegate> delegate;
 @property (assign) BOOL gcSuccess;
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate;
+- (void)showLeaderboardsFromViewController:(UIViewController *)viewController;
+- (void)showAchievementsFromViewController:(UIViewController *)viewController;
 - (void)reportScore: (int64_t) score forCategory: (NSString*) category;
 - (void)authenticateLocalPlayer;
 - (void)reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
