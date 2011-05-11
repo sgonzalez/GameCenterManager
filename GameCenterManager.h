@@ -51,7 +51,7 @@
 @property (retain) NSMutableDictionary *playersDict;
 @property (retain) UIViewController *presentingViewController;
 @property (retain) GKMatch *match;
-@property (assign) id <GCHelperDelegate> delegate;
+@property (assign) id <GameCenterManagerDelegate> delegate;
 @property (assign) BOOL gcSuccess;
 - (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate;
 - (void)reportScore: (int64_t) score forCategory: (NSString*) category;
