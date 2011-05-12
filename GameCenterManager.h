@@ -33,32 +33,11 @@
 #import <Foundation/Foundation.h>
 #import <GameKit/GameKit.h>
 
-@protocol GameCenterManagerDelegate 
-- (void)matchStarted;
-- (void)inviteReceived;
-- (void)matchEnded;
-- (void)match:(GKMatch *)match didReceiveData:(NSData *)data fromPlayer:(NSString *)playerID;
-@end
 
-@interface GameCenterManager : NSObject <GKMatchmakerViewControllerDelegate, GKMatchDelegate, GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate> {
+@interface GameCenterManager : NSObject <GKAchievementViewControllerDelegate, GKLeaderboardViewControllerDelegate> {
     BOOL gcSuccess;
-	
-	UIViewController *presentingViewController;
-	GKMatch *match;
-	BOOL matchStarted;
-	id <GameCenterManagerDelegate> delegate;
-	NSMutableDictionary *playersDict;
-	GKInvite *pendingInvite;
-	NSArray *pendingPlayersToInvite;
 }
-@property (retain) GKInvite *pendingInvite;
-@property (retain) NSArray *pendingPlayersToInvite;
-@property (retain) NSMutableDictionary *playersDict;
-@property (retain) UIViewController *presentingViewController;
-@property (retain) GKMatch *match;
-@property (assign) id <GameCenterManagerDelegate> delegate;
 @property (assign) BOOL gcSuccess;
-- (void)findMatchWithMinPlayers:(int)minPlayers maxPlayers:(int)maxPlayers fromViewController:(UIViewController *)viewController delegate:(id<GameCenterManagerDelegate>)theDelegate;
 - (void)showLeaderboardsFromViewController:(UIViewController *)viewController;
 - (void)showAchievementsFromViewController:(UIViewController *)viewController;
 - (void)reportScore: (int64_t) score forCategory: (NSString*) category;
