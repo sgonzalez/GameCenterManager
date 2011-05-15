@@ -108,7 +108,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
         achievement.percentComplete = percent;
         [achievement reportAchievementWithCompletionHandler:^(NSError *error)
          {
-             if (error != nil){
+             if (error != nil) {
                  // Retain the achievement object and try again later (not shown).
 				 /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not submit achievement with Game Center." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
 				  [alert show];
