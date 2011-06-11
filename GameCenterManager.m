@@ -76,9 +76,9 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 		else
 		{
 			// Your application can process the error parameter to report the error to the player.
-			UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not connect with Game Center servers." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
+			/*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not connect with Game Center servers." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
 			[alert show];
-			[alert release];
+			[alert release];*/
 		}
 	}];
 }
