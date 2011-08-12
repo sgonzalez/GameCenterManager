@@ -83,7 +83,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 	}];
 }
 
-- (void) reportScore: (int64_t) score forCategory: (NSString*) category {
+- (void)reportScore:(int64_t)score forCategory:(NSString*)category {
 	if (!gcSuccess) return;
 	
 	GKScore *scoreReporter = [[[GKScore alloc] initWithCategory:category] autorelease];
@@ -99,7 +99,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 	}];
 }
 
-- (void) reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent {
+- (void)reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent {
 	if (!gcSuccess) return;
 	
     GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
@@ -118,5 +118,27 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
     }
 }
 
+- (void)reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent withBanner:(BOOL)banner {
+	if (!gcSuccess) return;
+	
+    GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
+    if (achievement)
+    {
+        achievement.percentComplete = percent;
+		
+		if (banner && [achievement respondsToSelector:@selector(setShowsCompletionBanner:)])
+		    achievement.showsCompletionBanner = YES;
+		
+        [achievement reportAchievementWithCompletionHandler:^(NSError *error)
+         {
+             if (error != nil) {
+                 // Retain the achievement object and try again later (not shown).
+				 /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not submit achievement with Game Center." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
+				  [alert show];
+				  [alert release];*/
+             }
+		 }];
+    }
+}
 
 @end

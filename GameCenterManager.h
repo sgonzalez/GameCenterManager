@@ -40,8 +40,9 @@
 @property (assign) BOOL gcSuccess;
 - (void)showLeaderboardsFromViewController:(UIViewController *)viewController;
 - (void)showAchievementsFromViewController:(UIViewController *)viewController;
-- (void)reportScore: (int64_t) score forCategory: (NSString*) category;
+- (void)reportScore:(int64_t)score forCategory:(NSString*)category;
+- (void)reportScore:(int64_t)score forCategory:(NSString*)category withBanner:(BOOL)banner;
 - (void)authenticateLocalPlayer;
-- (void)reportAchievementIdentifier: (NSString*) identifier percentComplete: (float) percent;
+- (void)reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent;
 + (GameCenterManager *)sharedGameCenterManager;
 @end
