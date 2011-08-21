@@ -127,7 +127,7 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
         achievement.percentComplete = percent;
 		
 		if (banner && [achievement respondsToSelector:@selector(setShowsCompletionBanner:)])
-		    achievement.showsCompletionBanner = YES;
+		    [achievement setShowsCompletionBanner:YES];
 		
         [achievement reportAchievementWithCompletionHandler:^(NSError *error)
          {
