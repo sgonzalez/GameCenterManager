@@ -77,8 +77,8 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 		{
 			// Your application can process the error parameter to report the error to the player.
 			/*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not connect with Game Center servers." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
-			[alert show];
-			[alert release];*/
+			 [alert show];
+			 [alert release];*/
 		}
 	}];
 }
@@ -100,34 +100,17 @@ SYNTHESIZE_SINGLETON_FOR_CLASS(GameCenterManager)
 }
 
 - (void)reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent {
-	if (!gcSuccess) return;
-	
-    GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
-    if (achievement)
-    {
-        achievement.percentComplete = percent;
-        [achievement reportAchievementWithCompletionHandler:^(NSError *error)
-         {
-             if (error != nil) {
-                 // Retain the achievement object and try again later (not shown).
-				 /*UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Error" message:@"Could not submit achievement with Game Center." delegate:nil cancelButtonTitle:@"Try Later" otherButtonTitles:nil];
-				  [alert show];
-				  [alert release];*/
-             }
-		 }];
-    }
+	[self reportAchievementIdentifier:identifier percentComplete:percent withBanner:NO];
 }
 
 - (void)reportAchievementIdentifier:(NSString*)identifier percentComplete:(float)percent withBanner:(BOOL)banner {
 	if (!gcSuccess) return;
 	
     GKAchievement *achievement = [[[GKAchievement alloc] initWithIdentifier: identifier] autorelease];
-    if (achievement)
-    {
+    if (achievement) {
         achievement.percentComplete = percent;
 		
-		if (banner && [achievement respondsToSelector:@selector(setShowsCompletionBanner:)])
-		    [achievement setShowsCompletionBanner:YES];
+		[achievement setShowsCompletionBanner:banner];
 		
         [achievement reportAchievementWithCompletionHandler:^(NSError *error)
          {
