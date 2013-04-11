@@ -1,3 +1,6 @@
+***
+删除了原prom中的GKMatchmakerViewController分类，修正了6.0设备上crash的问题
+***
 GameCenterManager is a simple singleton class that has methods for authentication, leaderboard score reporting, achievement reporting, as well as achievement and leaderboard view displaying! There is even a category included for making a GKMatchmakerViewController landscape! Note that your project must link against the GameCenter framework.
 
 Usage.m is a file showing the usage of this class, this is NOT a proper class implementation.
